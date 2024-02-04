@@ -32,10 +32,10 @@ public class Controller {
             , produces = "application/json;charset=UTF-8")
     public ResponseEntity<LinkedHashMap<String,Integer>> process(String string){
         if (string==null||string.isEmpty())
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         var answer = calculate.calculate(string);
         if (answer.isEmpty())
-            return new ResponseEntity(answer,HttpStatus.BAD_REQUEST);
-        return new ResponseEntity(answer,HttpStatus.OK);
+            return new ResponseEntity<>(answer, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 }

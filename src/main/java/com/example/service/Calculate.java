@@ -1,6 +1,5 @@
 package com.example.service;
 
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,10 +26,9 @@ public class Calculate {
                 map.put(string.substring(i,i+1),1);
             }
         }
-        var link = map.entrySet()
+        return map.entrySet()
                 .stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue
                         ,(k1, k2) -> k1, LinkedHashMap::new));
-        return link;
     }
 }

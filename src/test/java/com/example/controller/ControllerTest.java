@@ -25,17 +25,16 @@ class ControllerTest {
     @Test
     public void zapros() throws Exception {
         var mapper = new ObjectMapper();
-        String stringAnswer = null;
         try {
-            stringAnswer = mapper.writeValueAsString(calculate.calculate(INPUT_STRING));
+            var stringAnswer = mapper.writeValueAsString(calculate.calculate(INPUT_STRING));
+            mvc.perform(MockMvcRequestBuilders.post("/string")
+                            .param("string", INPUT_STRING)
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                    .andExpect(content().json(stringAnswer));
         } catch (JsonProcessingException e) {
         }
-        mvc.perform(MockMvcRequestBuilders.post("/string")
-                        .param("string", INPUT_STRING)
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(stringAnswer));
     }
 
 }
